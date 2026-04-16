@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .card {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    padding: 50px 40px;
+    width: 100%;
+    max-width: 400px;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    color: #c9a84c;
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #f0e6cc;
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  .subtitle { color: #555; font-size: 13px; margin-bottom: 36px; }
+
+  .input-group { position: relative; margin-bottom: 28px; }
+
+  .input-group input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #2a2a2a;
+    color: #ddd;
+    padding: 12px 0;
+    font-size: 14px;
+    font-family: 'Jost', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .input-group input:focus { border-color: #c9a84c; }
+
+  .input-group label {
+    position: absolute;
+    top: 12px; left: 0;
+    color: #444;
+    font-size: 13px;
+    transition: 0.3s;
+    pointer-events: none;
+  }
+
+  .input-group input:focus ~ label,
+  .input-group input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 11px;
+    color: #c9a84c;
+    letter-spacing: 1px;
+  }
+
+  .toggle-pass {
+    position: absolute;
+    right: 0; top: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.4;
+    background: none;
+    border: none;
+    color: #ddd;
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: #444;
+  }
+
+  .options input { accent-color: #c9a84c; margin-right: 6px; }
+  .options a { color: #c9a84c; text-decoration: none; }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background: #c9a84c;
+    color: #0d0d0d;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+    border-radius: 2px;
+  }
+
+  .btn:hover { background: #e0bf6a; }
+  .btn:active { transform: scale(0.98); }
+
+  .register {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: #444;
+  }
+
+  .register a { color: #c9a84c; text-decoration: none; }
+  #message { margin-top: 16px; text-align: center; font-size: 13px; min-height: 20px; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">✦ AURUM</div>
+  <h1>Welcome back</h1>
+  <p class="subtitle">Sign in to continue</p>
+
+  <div class="input-group">
+    <input type="email" id="email" placeholder=" "/>
+    <label for="email">Email address</label>
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="password" placeholder=" "/>
+    <label for="password">Password</label>
+    <button class="toggle-pass" onclick="togglePassword()">👁</button>
+  </div>
+
+  <div class="options">
+    <label><input type="checkbox"/> Remember me</label>
+    <a href="#">Forgot password?</a>
+  </div>
+
+  <button class="btn" onclick="handleLogin()">Sign In</button>
+  <p class="register">Don't have an account? <a href="#">Create one</a></p>
+  <div id="message"></div>
+</div>
+
+<script>
+  function handleLogin() {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const msg = document.getElementById('message');
+
+    if (!email || !password) {
+      msg.style.color = '#e05c5c';
+      msg.textContent = 'Please fill in all fields.';
+      return;
+    }
+    if (!email.includes('@')) {
+      msg.style.color = '#e05c5c';
+      msg.textContent = 'Enter a valid email address.';
+      return;
+    }
+    if (password.length < 6) {
+      msg.style.color = '#e05c5c';
+      msg.textContent = 'Password must be at least 6 characters.';
+      return;
+    }
+
+    msg.style.color = '#6dbf7e';
+    msg.textContent = 'Login successful! Redirecting...';
+  }
+
+  function togglePassword() {
+    const p = document.getElementById('password');
+    p.type = p.type === 'password' ? 'text' : 'password';
+  }
+</script>
+
+</body>
+</html>
